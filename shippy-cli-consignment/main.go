@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"github.com/micro/micro/v3/service"
+	"github.com/micro/micro/v3/service/client"
 	"io/ioutil"
 	"log"
-	pb "micro-service-shippy/consignment-service/proto/consignment"
+	pb "micro-service-shippy/shippy-service-consignment/proto/consignment"
 	"os"
 
 	"google.golang.org/grpc"
@@ -18,13 +20,14 @@ const (
 
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("grpc dial err: %v\n", err)
-	}
-	defer conn.Close()
+	// conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// if err != nil {
+	// 	log.Fatalf("grpc dial err: %v\n", err)
+	// }
+	// defer conn.Close()
 
-	client := pb.NewShippingServiceClient(conn)
+	// client := pb.NewShippingServiceClient(conn)
+	cli := pb.NewShippingService("consignment", client.DefaultClient)
 
 	// Contact the server and print out its response.
 	file := defaultFilename
@@ -37,13 +40,13 @@ func main() {
 		log.Fatalf("could not parse file: %v\n", err)
 	}
 
-	resp, err := client.CreateConsignment(context.Background(), consignment)
+	resp, err := cli.CreateConsignment(context.Background(), consignment)
 	if err != nil {
 		log.Fatalf("failed to create consignment: %v\n", err)
 	}
 	log.Printf("Created: %t\n", resp.Created)
 
-	getAll, err := client.GetConsignments(context.Background(), &pb.GetRequest{})
+	getAll, err := cli.GetConsignments(context.Background(), &pb.GetRequest{})
 	if err != nil {
 		log.Fatalf("Could not list consignments: %v", err)
 	}

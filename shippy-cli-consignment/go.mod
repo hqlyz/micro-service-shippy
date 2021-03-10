@@ -1,15 +1,15 @@
-module micro-service-shippy
+module micro-service-shippy/shippy-cli-consignment
 
 go 1.15
 
 require (
-	github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403 // indirect
-	github.com/golang/protobuf v1.4.3
-	github.com/google/go-cmp v0.5.0 // indirect
-	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/golang/protobuf v1.4.3 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sys v0.0.0-20210309074719-68d13333faf2 // indirect
 	golang.org/x/text v0.3.5 // indirect
 	google.golang.org/genproto v0.0.0-20210309190941-1aeedc14537d // indirect
 	google.golang.org/grpc v1.36.0
+	micro-service-shippy/shippy-service-consignment v0.1.0
 )
+
+replace micro-service-shippy/shippy-service-consignment => ../shippy-service-consignment
