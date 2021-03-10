@@ -3,14 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/client"
 	"io/ioutil"
 	"log"
 	pb "micro-service-shippy/shippy-service-consignment/proto/consignment"
 	"os"
 
-	"google.golang.org/grpc"
 )
 
 const (
