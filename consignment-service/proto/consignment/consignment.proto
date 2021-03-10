@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package go.micro.srv.consignment;
+package consignment;
 
 // 货轮微服务
 service ShippingService {
     // 托运一批货物
-    rpc CreateConsignment (Consignment) returns (Response) {
-    }
+    rpc CreateConsignment (Consignment) returns (Response) {}
+    rpc GetConsignments (GetRequest) returns (Response) {}
 }
 
 // 货轮承运的一批货物
@@ -26,8 +26,12 @@ message Container {
     string user_id = 4;     // 集装箱所属用户的编号
 }
 
+message GetRequest {}
+
 // 托运结果
 message Response {
     bool created = 1;            // 托运成功与否
     Consignment consignment = 2; // 新托运的货物
+    // Added a pluralised consignment to our generic response message
+    repeated Consignment consignments = 3;
 }
