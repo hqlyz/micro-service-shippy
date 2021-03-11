@@ -1,7 +1,7 @@
 FROM golang:alpine as builder
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache git
+RUN apk update && apk upgrade && apk add --no-cache git
+# RUN apk add --no-cache git
 
 RUN mkdir /app
 WORKDIR /app

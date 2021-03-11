@@ -6,7 +6,7 @@ import (
 	pb "micro-service-shippy/shippy-service-consignment/proto/consignment"
 	"sync"
 
-	"github.com/micro/micro/v3/service"
+	"github.com/micro/go-micro"
 )
 
 const (
@@ -69,9 +69,12 @@ func (s *consignmentService) GetConsignments(ctx context.Context, in *pb.GetRequ
 }
 
 func main() {
+	// serv := service.New(service.Name("consignment"))
+	serv := micro.NewService(micro.Name("consignment"))
+	serv.Init()
+	
 	repo := &Repository{}
-	serv := service.New(service.Name("consignment"))
-	serv.Handle(&consignmentService{repo})
+	pb.RegisterShippingServiceHandler(serv.Server(), &consignmentService{repo})
 
 	if err := serv.Run(); err != nil {
 		log.Fatal(err)
